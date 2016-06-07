@@ -1,0 +1,33 @@
+{
+  "name": "markdown-doc-bundler-js",
+  "version": "0.0.0",
+  "description": "Reads a folder containing documents of given type(s) and returns a JavaScript object containing paths and references to files in memory.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wbprice/js-markdown-doc-bundler.git"
+  },
+  "keywords": [
+    "markdown",
+    "documentation",
+    "bundle"
+  ],
+  "author": "W. Blaine Price",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wbprice/js-markdown-doc-bundler/issues"
+  },
+  "homepage": "https://github.com/wbprice/js-markdown-doc-bundler#readme",
+  "devDependencies": {
+    "eslint": "^2.11.1",
+    "eslint-config-trails": "^1.0.7"
+  },
+  "dependencies": {
+    "chai": "^3.5.0",
+    "lodash": "^4.13.1",
+    "mocha": "^2.5.3"
+  }
+}
