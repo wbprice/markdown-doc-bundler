@@ -4,11 +4,18 @@ markdown files as strings organized according to the directory's original struct
 
 ## Usage
 
+### Installation
 ```sh
   npm install --save markdown-doc-bundler
 ```
 
+### Usage
 ```js
   const markdownDocBundler = require('markdown-doc-bundler')
   const docs = markdownDocBundler(/* absolute path to directory */)
+```
+
+### Tests
+```sh
+  npm test
 ```
