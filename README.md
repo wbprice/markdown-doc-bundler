@@ -1,2 +1,14 @@
-# js-markdown-doc-bundler
-Reads a folder containing documents of given type(s) and returns a JavaScript object containing paths and references to files in memory.
+# markdown-doc-bundler
+Accepts the path of a directory. Produces an object containing the contents of
+markdown files as strings organized according to the directory's original structure.
+
+## Usage
+
+```sh
+  npm install --save markdown-doc-bundler
+```
+
+```js
+  const markdownDocBundler = require('markdown-doc-bundler')
+  const docs = markdownDocBundler(/* absolute path to directory */)
+```

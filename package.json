@@ -1,7 +1,7 @@
 {
   "name": "markdown-doc-bundler",
   "version": "0.0.1",
-  "description": "Accepts a path and returns an object containing markdown files keyed to their location in the given directory.",
+  "description": "Accepts the path of a directory. Produces an object containing the contents of markdown files as strings organized according to the directory's original structure.",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
