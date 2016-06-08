@@ -1,29 +1,48 @@
 'use strict'
 
+const fs = require('fs')
+const path = require('path')
+
 /*
- * @name 
- * bundler
+ * @name
+ * #bundler
  * @description
- * Main function.  Accepts a directory and types of files to include in 
- * resulting bundle of files.
- * @param {string} path to start building the bundle in.
- * @param {string | array} filetypes to include in the bundle.
+ * A function that parses a given directory
+ * @returns {object}
+ * Object containing
  */
 
-function bundler(path, types) {
+function bundler(pwd) {
 
-  if (!path) {
-    throw 'Please include a path to start building the doc bundle.'
-  }
-  
-  if (!types) {
-    types = '.md'
+  if (!pwd) {
+    throw 'Please include the absolute path of the directory containing ' +
+          'module docs you want to bundle.'
   }
 
-  return {}
+  const files = fs.readdirSync(pwd)
+  const output = {}
+
+  files.forEach(file => {
+
+    const absolutePath = path.resolve(pwd, file)
+    const stat = fs.statSync(absolutePath)
+
+    // If this file is a directory, pass the directory to #bundler, saving the
+    // results to output keyed by the directory name
+    if (stat.isDirectory()) {
+      output[file] = bundler(absolutePath)
+    }
+
+    // If this file is a markdown file, save the file contents to the output
+    // object, keyed by the file name.
+    else if (stat.isFile() && path.extname(absolutePath) === '.md') {
+      output[file] = fs.readFileSync(absolutePath, 'utf8')
+    }
+
+  })
+
+  return output
 
 }
 
-module.exports = {
-  default: bundler
-}
+module.exports = bundler

@@ -1,8 +1,10 @@
 {
-  "extends": "trails"
+  "extends": "trails",
   "parserOptions": {
     "sourceType": "module"
+  },
+  "env": {
+    "mocha": true,
+    "node": true
   }
 }
-
-

@@ -4,7 +4,7 @@
   "description": "Reads a folder containing documents of given type(s) and returns a JavaScript object containing paths and references to files in memory.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha" 
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "chai": "^3.5.0",
+    "chai-spies": "^0.7.1",
     "lodash": "^4.13.1",
     "mocha": "^2.5.3"
   }
