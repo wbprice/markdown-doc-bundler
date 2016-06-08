@@ -1,7 +1,7 @@
 {
-  "name": "markdown-doc-bundler-js",
-  "version": "0.0.0",
-  "description": "Reads a folder containing documents of given type(s) and returns a JavaScript object containing paths and references to files in memory.",
+  "name": "markdown-doc-bundler",
+  "version": "0.0.1",
+  "description": "Accepts a path and returns an object containing markdown files keyed to their location in the given directory.",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
