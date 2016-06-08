@@ -7,9 +7,9 @@ const path = require('path')
  * @name
  * #bundler
  * @description
- * A function that parses a given directory
+ * Accepts the path of a directory. Produces an object containing the contents of
+   markdown files as strings organized according to the directory's original structure.
  * @returns {object}
- * Object containing
  */
 
 function bundler(pwd) {
