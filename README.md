@@ -46,7 +46,7 @@ Returns an object that looks like this:
     'README.md': 'Bomb diggity'
   },
   'concepts': {
-    'README.md': 'Last markdown file, I promise.'
+    'concepts.md': 'Last markdown file, I promise.'
   }
 }
 ```
@@ -78,7 +78,7 @@ Given input that looks like this:
     'README.md': 'Bomb diggity'
   },
   'concepts': {
-    'README.md': 'Last markdown file, I promise.'
+    'concepts.md': 'Last markdown file, I promise.'
   }
 }
 ```

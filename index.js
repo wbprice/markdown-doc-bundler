@@ -64,11 +64,25 @@ function routesMaker(bundle, pwd = '/') {
   const output = []
 
   function recursiveRoutesMaker(pwd, bundle) {
+
     _.forEach(bundle, (value, key) => {
 
       // If the value is a string and the key is 'README.md', consider this to
       // be the root entry for this folder.
       if (_.isString(value) && key === 'README.md') {
+        output.push([pwd, value])
+      }
+
+      //  If ...
+      //  1) Value is a string
+      //  2) There is no 'README.md' in this bundle
+      //  3) An index route is not already registered for this folder
+      //  Set the first document that isn't a directory as the index.
+      else if (
+        _.isString(value) &&
+        Object.keys(bundle).indexOf('README.md') === -1 &&
+        !output.find(route => route[0] === pwd)
+      ) {
         output.push([pwd, value])
       }
 
