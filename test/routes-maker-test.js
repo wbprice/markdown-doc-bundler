@@ -32,7 +32,7 @@ describe('#routesMaker', () => {
     expect(result[0][1]).to.be.a('string')
 
     expect(result[1]).to.be.an('array')
-    expect(result[1][0]).to.equal('/anatomy')
+    expect(result[1][0]).to.equal('/anatomy/')
     expect(result[1][1]).to.be.a('string')
 
     expect(result[2]).to.be.a('array')
@@ -48,23 +48,23 @@ describe('#routesMaker', () => {
     expect(result[4][1]).to.be.a('string')
 
     expect(result[5]).to.be.a('array')
-    expect(result[5][0]).to.equal('/anatomy/trailsProject')
+    expect(result[5][0]).to.equal('/anatomy/trailsProject/')
     expect(result[5][1]).to.be.a('string')
 
     expect(result[6]).to.be.a('array')
-    expect(result[6][0]).to.equal('/anatomy/trailsProject/api')
+    expect(result[6][0]).to.equal('/anatomy/trailsProject/api/')
     expect(result[6][1]).to.be.a('string')
 
     expect(result[7]).to.be.a('array')
-    expect(result[7][0]).to.equal('/concepts')
+    expect(result[7][0]).to.equal('/concepts/')
     expect(result[7][1]).to.be.a('string')
 
     expect(result[8]).to.be.a('array')
-    expect(result[8][0]).to.equal('/concepts/orm')
+    expect(result[8][0]).to.equal('/concepts/orm/')
     expect(result[8][1]).to.be.a('string')
 
     expect(result[9]).to.be.a('array')
-    expect(result[9][0]).to.equal('/concepts/policies')
+    expect(result[9][0]).to.equal('/concepts/policies/')
     expect(result[9][1]).to.be.a('string')
 
   })
@@ -78,11 +78,11 @@ describe('#routesMaker', () => {
     expect(result).to.have.lengthOf(10)
 
     expect(result[0]).to.be.an('array')
-    expect(result[0][0]).to.equal('/docs')
+    expect(result[0][0]).to.equal('/docs/')
     expect(result[0][1]).to.be.a('string')
 
     expect(result[1]).to.be.an('array')
-    expect(result[1][0]).to.equal('/docs/anatomy')
+    expect(result[1][0]).to.equal('/docs/anatomy/')
     expect(result[1][1]).to.be.a('string')
 
     expect(result[2]).to.be.a('array')
@@ -98,23 +98,23 @@ describe('#routesMaker', () => {
     expect(result[4][1]).to.be.a('string')
 
     expect(result[5]).to.be.a('array')
-    expect(result[5][0]).to.equal('/docs/anatomy/trailsProject')
+    expect(result[5][0]).to.equal('/docs/anatomy/trailsProject/')
     expect(result[5][1]).to.be.a('string')
 
     expect(result[6]).to.be.a('array')
-    expect(result[6][0]).to.equal('/docs/anatomy/trailsProject/api')
+    expect(result[6][0]).to.equal('/docs/anatomy/trailsProject/api/')
     expect(result[6][1]).to.be.a('string')
 
     expect(result[7]).to.be.a('array')
-    expect(result[7][0]).to.equal('/docs/concepts')
+    expect(result[7][0]).to.equal('/docs/concepts/')
     expect(result[7][1]).to.be.a('string')
 
     expect(result[8]).to.be.a('array')
-    expect(result[8][0]).to.equal('/docs/concepts/orm')
+    expect(result[8][0]).to.equal('/docs/concepts/orm/')
     expect(result[8][1]).to.be.a('string')
 
     expect(result[9]).to.be.a('array')
-    expect(result[9][0]).to.equal('/docs/concepts/policies')
+    expect(result[9][0]).to.equal('/docs/concepts/policies/')
     expect(result[9][1]).to.be.a('string')
 
   })

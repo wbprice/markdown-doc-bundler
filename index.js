@@ -70,7 +70,8 @@ function routesMaker(bundle, pwd = '/') {
       // If the value is a string and the key is 'README.md', consider this to
       // be the root entry for this folder.
       if (_.isString(value) && key === 'README.md') {
-        output.push([pwd, value])
+        const nextPwd = pwd === '/' ? '/' : `${pwd}/`
+        output.push([nextPwd, value])
       }
 
       //  If ...
@@ -83,7 +84,8 @@ function routesMaker(bundle, pwd = '/') {
         Object.keys(bundle).indexOf('README.md') === -1 &&
         !output.find(route => route[0] === pwd)
       ) {
-        output.push([pwd, value])
+        const nextPwd = pwd === '/' ? '/' : `${pwd}/`
+        output.push([nextPwd, value])
       }
 
       // If the value is a string and the key is something else, consider this
