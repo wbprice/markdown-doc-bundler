@@ -93,7 +93,7 @@ This allows us to bind routes on the server and pass them context.
 ```js
   const docs = markdownDocBundler(/* absolute path to directory */)
   const routesMaker = require('markdown-doc-bundler').routesMaker
-  const routes = routesGenerator(docs)
+  const routes = routesMaker(docs)
 ```
 
 ### Tests
