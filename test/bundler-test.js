@@ -1,7 +1,7 @@
 'use strict'
 
 const { expect } = require('chai')
-const bundler = require('../index')
+const bundler = require('../index').bundler
 const path = require('path')
 
 describe('#bundler', () => {

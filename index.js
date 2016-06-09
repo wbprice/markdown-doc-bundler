@@ -2,6 +2,7 @@
 
 const fs = require('fs')
 const path = require('path')
+const _ = require('lodash')
 
 /*
  * @name
@@ -45,4 +46,48 @@ function bundler(pwd) {
 
 }
 
-module.exports = bundler
+/*
+ * @name
+ * route
+ * @description
+ * A function that accepts the output of bundler and returns an array containing
+ * arrays containing strings of desired routes and markdown file contents.
+ * @param {object} bundle
+ */
+
+function routesMaker(bundle, pwd = '/') {
+
+  if (!bundle) {
+    throw 'Please include a bundle to parse'
+  }
+
+  const output = []
+
+  function recursiveRoutesMaker(pwd, bundle) {
+    _.forEach(bundle, (value, key) => {
+
+      // If this is a string, push an object containing the route and
+      // string to output
+      if (_.isString(value)) {
+        output.push([pwd, value])
+      }
+
+      // If this is an object, run the function again.
+      if (_.isObject(value)) {
+        const nextPwd = pwd === '/' ? `/${key}` : `${pwd}/${key}`
+        recursiveRoutesMaker(nextPwd, value)
+      }
+
+    })
+  }
+
+  recursiveRoutesMaker(pwd, bundle)
+
+  return output
+
+}
+
+module.exports = {
+  bundler,
+  routesMaker
+}
