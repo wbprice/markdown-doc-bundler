@@ -88,13 +88,13 @@ Returns output that look like:
 ```js
 [
   [ '/', 'This is a markdown file' ],
-  [ '/anatomy', 'Bomb diggity' ],
+  [ '/anatomy/', 'Bomb diggity' ],
   [ '/anatomy/backbone', 'Backbone is a client side JavaScript framework'],
   [ '/anatomy/kneebone', 'The kneebone is connected to the ankle bone'],
   [ '/anatomy/tailbone', 'The tailbone is connected to the backbone'],
-  [ '/anatomy/trailsProject', 'A different markdown file' ],
+  [ '/anatomy/trailsProject/', 'A different markdown file' ],
   [ '/anatomy/trailsProject/api', 'A totally new thing' ],
-  [ '/concepts', 'Last markdown file, I promise.' ]
+  [ '/concepts/', 'Last markdown file, I promise.' ]
 }
 ```
 
