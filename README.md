@@ -17,6 +17,9 @@ Given a path to a directory containing markdown files organized like this:
   README.md
   - anatomy
   -- README.md
+  -- backbone.md
+  -- kneebone.md
+  -- tailbone.md
   --- trailsProject
   ---- README.md
   --- api
@@ -33,6 +36,9 @@ Returns an object that looks like this:
   'anatomy': {
     'trailsProject': {
       'README.md': 'A different markdown file',
+      'backbone.md': 'Backbone is a client side JavaScript framework',
+      'kneebone.md': 'The kneebone is connected to the ankle bone',
+      'tailbone.md': 'The tailbone is connected to the backbone',
       'api': {
         'README.md': 'A totally new thing'
       }
@@ -62,6 +68,9 @@ Given input that looks like this:
   'anatomy': {
     'trailsProject': {
       'README.md': 'A different markdown file',
+      'backbone.md': 'Backbone is a client side JavaScript framework',
+      'kneebone.md': 'The kneebone is connected to the ankle bone',
+      'tailbone.md': 'The tailbone is connected to the backbone',
       'api': {
         'README.md': 'A totally new thing'
       }
@@ -80,13 +89,18 @@ Returns output that look like:
 [
   [ '/', 'This is a markdown file' ],
   [ '/anatomy', 'Bomb diggity' ],
+  [ '/anatomy/backbone', 'Backbone is a client side JavaScript framework'],
+  [ '/anatomy/kneebone', 'The kneebone is connected to the ankle bone'],
+  [ '/anatomy/tailbone', 'The tailbone is connected to the backbone'],
   [ '/anatomy/trailsProject', 'A different markdown file' ],
   [ '/anatomy/trailsProject/api', 'A totally new thing' ],
   [ '/concepts', 'Last markdown file, I promise.' ]
 }
 ```
 
-This allows us to bind routes on the server and pass them context.
+This allows us to create routes on the server based on the structure of the
+directory containing our documentation, passing the contents of the markdown
+files as context to the views.
 
 ##### Usage
 
