@@ -22,8 +22,14 @@ describe('#bundler', () => {
     const level1 = Object.keys(result)
     const level2 = Object.keys(result.anatomy)
 
-    expect(level1).to.deep.equal(['README.md', 'anatomy', 'concepts'])
-    expect(level2).to.deep.equal([ 'README.md', 'trailsProject' ])
+    expect(level1).to.deep.equal([ 'README.md', 'anatomy', 'concepts' ])
+    expect(level2).to.deep.equal([
+      'README.md',
+      'backbone.md',
+      'kneebone.md',
+      'tailbone.md',
+      'trailsProject'
+    ])
 
   })
 
@@ -34,6 +40,8 @@ describe('#bundler', () => {
 
     expect(result['README.md']).to.be.a('string')
     expect(result.anatomy['README.md']).to.be.a('string')
+    expect(result.anatomy['backbone.md']).to.be.a('string')
+    expect(result.anatomy['tailbone.md']).to.be.a('string')
 
   })
 

@@ -66,14 +66,22 @@ function routesMaker(bundle, pwd = '/') {
   function recursiveRoutesMaker(pwd, bundle) {
     _.forEach(bundle, (value, key) => {
 
-      // If this is a string, push an object containing the route and
-      // string to output
-      if (_.isString(value)) {
+      // If the value is a string and the key is 'README.md', consider this to
+      // be the root entry for this folder.
+      if (_.isString(value) && key === 'README.md') {
         output.push([pwd, value])
       }
 
+      // If the value is a string and the key is something else, consider this
+      // to be a page other than the root page.
+      else if (_.isString(value)) {
+        const nextKey = path.parse(key).name
+        const nextPwd = pwd === '/' ? `/${nextKey}` : `${pwd}/${nextKey}`
+        output.push([nextPwd, value])
+      }
+
       // If this is an object, run the function again.
-      if (_.isObject(value)) {
+      else if (_.isObject(value)) {
         const nextPwd = pwd === '/' ? `/${key}` : `${pwd}/${key}`
         recursiveRoutesMaker(nextPwd, value)
       }
