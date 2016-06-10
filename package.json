@@ -28,6 +28,8 @@
   "dependencies": {
     "chai": "^3.5.0",
     "lodash": "^4.13.1",
-    "mocha": "^2.5.3"
+    "mocha": "^2.5.3",
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0"
   }
 }

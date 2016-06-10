@@ -4,6 +4,6 @@ This folder describe the anatomy of Trails
 
 ## Let's Strart The Anatomy Guide
 
-### Path: 
+### Path:
 
 > [TrailsProject/](./trailsProject/README.md)

@@ -56,7 +56,7 @@ describe('#routesMaker', () => {
     expect(result[6][1]).to.be.a('string')
 
     expect(result[7]).to.be.a('array')
-    expect(result[7][0]).to.equal('/concepts/')
+    expect(result[7][0]).to.equal('/concepts/concepts')
     expect(result[7][1]).to.be.a('string')
 
     expect(result[8]).to.be.a('array')
@@ -106,7 +106,7 @@ describe('#routesMaker', () => {
     expect(result[6][1]).to.be.a('string')
 
     expect(result[7]).to.be.a('array')
-    expect(result[7][0]).to.equal('/docs/concepts/')
+    expect(result[7][0]).to.equal('/docs/concepts/concepts')
     expect(result[7][1]).to.be.a('string')
 
     expect(result[8]).to.be.a('array')
