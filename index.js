@@ -17,7 +17,7 @@ module.exports = {}
  * @returns {object}
  */
 
-module.exports.bundler = function(pwd, prefix) {
+module.exports.bundler = function(pwd) {
 
   if (!pwd) {
     throw 'Please include the absolute path of the directory containing ' +
@@ -41,7 +41,7 @@ module.exports.bundler = function(pwd, prefix) {
     // If this file is a markdown file, save the file contents to the output
     // object, keyed by the file name.
     else if (stat.isFile() && path.extname(absolutePath) === '.md') {
-      output[file] = module.exports.fixUrls(fs.readFileSync(absolutePath, 'utf8'), prefix)
+      output[file] = fs.readFileSync(absolutePath, 'utf8')
     }
 
   })
@@ -56,10 +56,14 @@ module.exports.bundler = function(pwd, prefix) {
  * @description
  * A function that accepts the output of bundler and returns an array containing
  * arrays containing strings of desired routes and markdown file contents.
+ * Accepts an optional parameter 'prefix' which is a prefix to file paths in markdown
+ * and routes.
+ *
  * @param {object} bundle
+ * @param {string} prefix
  */
 
-module.exports.routesMaker = function(bundle, pwd = '/') {
+module.exports.routesMaker = function(bundle, prefix = '/') {
 
   if (!bundle) {
     throw 'Please include a bundle to parse'
@@ -67,35 +71,34 @@ module.exports.routesMaker = function(bundle, pwd = '/') {
 
   const output = []
 
-  function recursiveRoutesMaker(pwd, bundle) {
+  function recursiveRoutesMaker(bundle, pwd) {
 
     _.forEach(bundle, (value, key) => {
 
       // If the value is a string and the key is 'README.md', consider this to
       // be the root entry for this folder.
       if (_.isString(value) && key === 'README.md') {
-        const nextPwd = pwd === '/' ? '/' : `${pwd}/`
-        output.push([nextPwd, value])
+        const nextPath = module.exports.fixUrl(path.join(pwd, key))
+        output.push([nextPath, module.exports.fixUrls(value, prefix, pwd)])
       }
 
       // If the value is a string and the key is something else, consider this
       // to be a page other than the root page.
       else if (_.isString(value)) {
-        const nextKey = path.parse(key).name
-        const nextPwd = pwd === '/' ? `/${nextKey}` : `${pwd}/${nextKey}`
-        output.push([nextPwd, value])
+        const nextPath = module.exports.fixUrl(path.join(pwd, key))
+        output.push([nextPath, module.exports.fixUrls(value, prefix, pwd)])
       }
 
       // If this is an object, run the function again.
       else if (_.isObject(value)) {
-        const nextPwd = pwd === '/' ? `/${key}` : `${pwd}/${key}`
-        recursiveRoutesMaker(nextPwd, value)
+        const nextPwd = path.join(pwd, key)
+        recursiveRoutesMaker(value, nextPwd)
       }
 
     })
   }
 
-  recursiveRoutesMaker(pwd, bundle)
+  recursiveRoutesMaker(bundle, prefix)
 
   return output
 
@@ -108,10 +111,10 @@ module.exports.routesMaker = function(bundle, pwd = '/') {
  * performs any number of operations to fix the urls contained within.
  */
 
-module.exports.fixUrls = function(string, prefix) {
+module.exports.fixUrls = function(string, prefix, pwd) {
   const urlRegex = /(\[.*?\]\()(.+?)(\))/g
   return string.replace(urlRegex, (whole, a, b, c) => {
-    return `${a}${module.exports.fixUrl(b, prefix)}${c}`
+    return `${a}${module.exports.fixUrl(b, prefix, pwd)}${c}`
   })
 }
 
@@ -120,7 +123,7 @@ module.exports.fixUrls = function(string, prefix) {
  * @description wrapper function for all the methods of fixing a url.
  */
 
-module.exports.fixUrl = function(url, prefix) {
+module.exports.fixUrl = function(url, prefix, pwd) {
 
   const protocolRegex = /([a-z][a-z0-9+.-]*.:)?(\/\/)/
   if (protocolRegex.test(url)) {
@@ -131,7 +134,8 @@ module.exports.fixUrl = function(url, prefix) {
     module.exports.makeIndex(
       module.exports.removeFileExtension(url)
     ),
-    prefix
+    prefix,
+    pwd
   )
 }
 
@@ -142,12 +146,32 @@ module.exports.fixUrl = function(url, prefix) {
  * @param {string} link
  */
 
-module.exports.prefixUrl = function(link, prefix) {
+module.exports.prefixUrl = function(url, prefix, pwd) {
+
+  // Does url contain '../'?
+  const directoryUpRegex = /\.{2}\//
+
   if (!prefix) {
-    return path.join('/', link)
+    return path.join('/', url)
   }
+
   else {
-    return path.join(`/${prefix}`, link)
+
+    // If URL is root relative, prefix it.
+    if (url[0] === '/') {
+      return path.join(`/${prefix}`, url)
+    }
+
+    // If URL is document relative and starts with '../'
+    else if (directoryUpRegex.test(url)) {
+      return path.join(`/${pwd.split('/').slice(0, -1).join('/')}`, url)
+    }
+
+    // If URL is document relative, prepend the pwd
+    else {
+      return path.join(`/${pwd}`, url)
+    }
+
   }
 }
 

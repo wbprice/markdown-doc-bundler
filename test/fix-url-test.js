@@ -15,8 +15,8 @@ describe('#fixUrl', () => {
   describe('Document Relative URLs', () => {
 
     it('should prefix a document relative url if a prefix is provided', () => {
-      const result = fixUrl(documentRelative, 'docs')
-      expect(result).to.equal('/docs/introduction/installation')
+      const result = fixUrl(documentRelative, 'docs', 'docs/markdown')
+      expect(result).to.equal('/docs/markdown/introduction/installation')
     })
 
     it('should fix a document relative url if no prefix is provided', () => {
@@ -25,8 +25,8 @@ describe('#fixUrl', () => {
     })
 
     it('should prefix a document relative url ending in README.md', () => {
-      const result = fixUrl('introduction/README.md', 'docs')
-      expect(result).to.equal('/docs/introduction/')
+      const result = fixUrl('introduction/README.md', 'docs', 'docs/markdown')
+      expect(result).to.equal('/docs/markdown/introduction/')
     })
 
     it('should fix a document relative url', () => {
