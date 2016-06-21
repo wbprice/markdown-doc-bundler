@@ -110,6 +110,49 @@ module.exports.routesMaker = function(bundle, prefix = '/') {
 }
 
 /*
+ * @name menuMaker
+ * @description
+ * Consumes the output of #routesMaker and makes a menu structure.  Removes any
+ * static images that may exist in the routes.
+ * @returns {array}
+ * [
+ *   ...
+ *   ['/docs/anatomy/tailbone', 'Tailbone']
+ *   ...
+ * ]
+ */
+
+module.exports.menuMaker = function(routes) {
+
+  function getNameOfRoute(route) {
+    const nextRoute = _.last(route.split('/').slice(-1))
+    if (nextRoute) {
+      return nextRoute
+    }
+    else {
+      return getNameOfRoute(
+        route.split('/')
+             .slice(0, -1)
+             .join('/')
+        )
+    }
+  }
+
+  return _.chain(routes)
+    .filter(route => {
+      return !imageRegex.test(route[0])
+    })
+    .map(route => {
+      return [
+        route[0],
+        getNameOfRoute(route[0])
+      ]
+    })
+    .value()
+
+}
+
+/*
  * @name #fixUrls
  * @description
  * A function that parses a string derived from a markdown doc and
