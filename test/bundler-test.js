@@ -22,7 +22,7 @@ describe('#bundler', () => {
     const level1 = Object.keys(result)
     const level2 = Object.keys(result.anatomy)
 
-    expect(level1).to.deep.equal([ 'README.md', 'anatomy', 'concepts' ])
+    expect(level1).to.deep.equal([ 'README.md', 'anatomy', 'assets', 'concepts' ])
     expect(level2).to.deep.equal([
       'README.md',
       'backbone.md',

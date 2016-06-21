@@ -19,5 +19,16 @@ describe('#removeFileExtension', () => {
 
   })
 
-})
+  it('shouldn\'t remove the file extension from an image path', () => {
 
+    const potatoImagePath = 'assets/images/potato.png'
+    const result = removeFileExtension(potatoImagePath)
+    expect(result).to.equal(potatoImagePath)
+
+    const carrotImagePath = 'assets/images/carrot.svg'
+    const result2 = removeFileExtension(carrotImagePath)
+    expect(result2).to.equal(carrotImagePath)
+
+  })
+
+})

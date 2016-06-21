@@ -25,7 +25,7 @@ describe('#routesMaker', () => {
     const result = routesMaker(sampleBundle)
 
     expect(result).to.be.an('array')
-    expect(result).to.have.lengthOf(10)
+    expect(result).to.have.lengthOf(13)
 
     expect(result[0]).to.be.an('array')
     expect(result[0][0]).to.equal('/')
@@ -56,16 +56,28 @@ describe('#routesMaker', () => {
     expect(result[6][1]).to.be.a('string')
 
     expect(result[7]).to.be.a('array')
-    expect(result[7][0]).to.equal('/concepts/concepts')
-    expect(result[7][1]).to.be.a('string')
+    expect(result[7][0]).to.equal('/assets/img/tutoYoTrailpack1.png')
+    expect(Buffer.isBuffer(result[7][1])).to.be.true
 
     expect(result[8]).to.be.a('array')
-    expect(result[8][0]).to.equal('/concepts/orm/')
-    expect(result[8][1]).to.be.a('string')
+    expect(result[8][0]).to.equal('/assets/img/tutoYoTrailpack2.png')
+    expect(Buffer.isBuffer(result[8][1])).to.be.true
 
     expect(result[9]).to.be.a('array')
-    expect(result[9][0]).to.equal('/concepts/policies/')
-    expect(result[9][1]).to.be.a('string')
+    expect(result[9][0]).to.equal('/assets/img/tutoYoTrailpack3.png')
+    expect(Buffer.isBuffer(result[9][1])).to.be.true
+
+    expect(result[10]).to.be.a('array')
+    expect(result[10][0]).to.equal('/concepts/concepts')
+    expect(result[10][1]).to.be.a('string')
+
+    expect(result[11]).to.be.a('array')
+    expect(result[11][0]).to.equal('/concepts/orm/')
+    expect(result[11][1]).to.be.a('string')
+
+    expect(result[12]).to.be.a('array')
+    expect(result[12][0]).to.equal('/concepts/policies/')
+    expect(result[12][1]).to.be.a('string')
 
   })
 
@@ -75,7 +87,7 @@ describe('#routesMaker', () => {
     const result = routesMaker(sampleBundle, '/docs')
 
     expect(result).to.be.an('array')
-    expect(result).to.have.lengthOf(10)
+    expect(result).to.have.lengthOf(13)
 
     expect(result[0]).to.be.an('array')
     expect(result[0][0]).to.equal('/docs/')
@@ -106,16 +118,28 @@ describe('#routesMaker', () => {
     expect(result[6][1]).to.be.a('string')
 
     expect(result[7]).to.be.a('array')
-    expect(result[7][0]).to.equal('/docs/concepts/concepts')
-    expect(result[7][1]).to.be.a('string')
+    expect(result[7][0]).to.equal('/docs/assets/img/tutoYoTrailpack1.png')
+    expect(Buffer.isBuffer(result[7][1])).to.be.true
 
     expect(result[8]).to.be.a('array')
-    expect(result[8][0]).to.equal('/docs/concepts/orm/')
-    expect(result[8][1]).to.be.a('string')
+    expect(result[8][0]).to.equal('/docs/assets/img/tutoYoTrailpack2.png')
+    expect(Buffer.isBuffer(result[8][1])).to.be.true
 
     expect(result[9]).to.be.a('array')
-    expect(result[9][0]).to.equal('/docs/concepts/policies/')
-    expect(result[9][1]).to.be.a('string')
+    expect(result[9][0]).to.equal('/docs/assets/img/tutoYoTrailpack3.png')
+    expect(Buffer.isBuffer(result[9][1])).to.be.true
+
+    expect(result[10]).to.be.a('array')
+    expect(result[10][0]).to.equal('/docs/concepts/concepts')
+    expect(result[10][1]).to.be.a('string')
+
+    expect(result[11]).to.be.a('array')
+    expect(result[11][0]).to.equal('/docs/concepts/orm/')
+    expect(result[11][1]).to.be.a('string')
+
+    expect(result[12]).to.be.a('array')
+    expect(result[12][0]).to.equal('/docs/concepts/policies/')
+    expect(result[12][1]).to.be.a('string')
 
   })
 

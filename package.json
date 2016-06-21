@@ -4,7 +4,8 @@
   "description": "Accepts the path of a directory. Produces an object containing the contents of markdown files as strings organized according to the directory's original structure.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "test-coverage": "istanbul cover _mocha -- -R spec"
   },
   "repository": {
     "type": "git",

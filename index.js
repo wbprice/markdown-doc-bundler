@@ -4,6 +4,8 @@ const fs = require('fs')
 const path = require('path')
 const _ = require('lodash')
 
+const imageRegex = /\.(gif|jp?g|png|svg)$/
+
 module.exports = {}
 
 /*
@@ -30,6 +32,7 @@ module.exports.bundler = function(pwd) {
   files.forEach(file => {
 
     const absolutePath = path.resolve(pwd, file)
+    const extname = path.extname(absolutePath)
     const stat = fs.statSync(absolutePath)
 
     // If this file is a directory, pass the directory to #bundler, saving the
@@ -40,8 +43,12 @@ module.exports.bundler = function(pwd) {
 
     // If this file is a markdown file, save the file contents to the output
     // object, keyed by the file name.
-    else if (stat.isFile() && path.extname(absolutePath) === '.md') {
+    else if (stat.isFile() && extname === '.md') {
       output[file] = fs.readFileSync(absolutePath, 'utf8')
+    }
+
+    else if (stat.isFile() && imageRegex.test(extname)) {
+      output[file] = fs.readFileSync(absolutePath)
     }
 
   })
@@ -73,26 +80,24 @@ module.exports.routesMaker = function(bundle, prefix = '/') {
 
   function recursiveRoutesMaker(bundle, pwd) {
 
-    _.forEach(bundle, (value, key) => {
+    _.forEach(bundle, (content, key) => {
 
-      // If the value is a string and the key is 'README.md', consider this to
-      // be the root entry for this folder.
-      if (_.isString(value) && key === 'README.md') {
+      // If the value is a string.
+      if (_.isString(content)) {
         const nextPath = module.exports.fixUrl(path.join(pwd, key))
-        output.push([nextPath, module.exports.fixUrls(value, prefix, pwd)])
+        output.push([nextPath, module.exports.fixUrls(content, prefix, pwd)])
       }
 
-      // If the value is a string and the key is something else, consider this
-      // to be a page other than the root page.
-      else if (_.isString(value)) {
-        const nextPath = module.exports.fixUrl(path.join(pwd, key))
-        output.push([nextPath, module.exports.fixUrls(value, prefix, pwd)])
+      // If the value is a Buffer (usually images)
+      else if (Buffer.isBuffer(content)) {
+        const nextPath = path.join('/', pwd, key)
+        output.push([nextPath, content])
       }
 
-      // If this is an object, run the function again.
-      else if (_.isObject(value)) {
+      // If content is an object, run the function again.
+      else if (_.isObject(content)) {
         const nextPwd = path.join(pwd, key)
-        recursiveRoutesMaker(value, nextPwd)
+        recursiveRoutesMaker(content, nextPwd)
       }
 
     })
@@ -112,8 +117,8 @@ module.exports.routesMaker = function(bundle, prefix = '/') {
  */
 
 module.exports.fixUrls = function(string, prefix, pwd) {
-  const urlRegex = /(\[.*?\]\()(.+?)(\))/g
-  return string.replace(urlRegex, (whole, a, b, c) => {
+  const markdownLinkRegex = /(\[.*?\]\()(.+?)(\))/g
+  return string.replace(markdownLinkRegex, (whole, a, b, c) => {
     return `${a}${module.exports.fixUrl(b, prefix, pwd)}${c}`
   })
 }
@@ -183,7 +188,13 @@ module.exports.prefixUrl = function(url, prefix, pwd) {
 
 module.exports.removeFileExtension = function(link) {
   const parsedLink = path.parse(link)
-  return path.join(parsedLink.dir, parsedLink.name)
+  if (imageRegex.test(parsedLink.ext)) {
+    return link
+  }
+  else {
+    return path.join(parsedLink.dir, parsedLink.name)
+  }
+
 }
 
 /*
