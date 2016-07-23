@@ -70,10 +70,14 @@ module.exports.bundler = function(pwd) {
  * @param {string} prefix
  */
 
-module.exports.routesMaker = function(bundle, prefix = '/') {
+module.exports.routesMaker = function(bundle, prefix) {
 
   if (!bundle) {
     throw 'Please include a bundle to parse'
+  }
+  
+  if (typeof prefix === 'undefined' || !prefix) {
+     prefix = '/'
   }
 
   const output = []
